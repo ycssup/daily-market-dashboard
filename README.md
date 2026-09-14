@@ -30,3 +30,7 @@ This project is designed as a compact market-monitoring and communication tool f
 ## Update approach
 
 The dashboard is refreshed with the latest available market observations while preserving consistent benchmark definitions, historical reference dates, and source disclosures.
+
+## Hosting
+
+Published with GitHub Pages from the `main` branch root.
