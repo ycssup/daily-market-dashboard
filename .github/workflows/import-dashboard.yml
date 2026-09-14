@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Import full dashboard HTML
         run: |
@@ -34,4 +36,5 @@ jobs:
             exit 0
           fi
           git commit -m "Import full dashboard HTML"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
