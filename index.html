@@ -1,1 +1,381 @@
-<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Morning Meeting Dashboard · 20 Sep 2026</title><script>(async()=>{const p=['data/2026-09-20-0.txt','data/2026-09-20-1.txt','data/2026-09-20-2.txt','data/2026-09-20-3.txt','data/2026-09-20-4.txt','data/2026-09-20-5.txt','data/2026-09-20-6.txt'],a=await Promise.all(p.map(x=>fetch(x+'?v=20260920FINAL2').then(r=>r.text()))),b=a.join(''),u=Uint8Array.from(atob(b),c=>c.charCodeAt(0)),ds=new DecompressionStream('gzip'),t=await new Response(new Blob([u]).stream().pipeThrough(ds)).text();document.open();document.write(t);document.close()})()</script>
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Morning Meeting Dashboard · 20 Sep 2026</title>
+<style>
+:root {
+  --navy:#183A59;
+  --blue:#275D8C;
+  --gold:#B77722;
+  --ink:#18222D;
+  --muted:#6C7A89;
+  --line:#D9E0E6;
+  --paper:#F4F7F9;
+  --card:#FFFFFF;
+  --green:#147A58;
+  --red:#B54A45;
+  --softgreen:#EAF5F0;
+  --softred:#F8ECEB;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);font-family:Inter,Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.45}
+.page{max-width:1280px;margin:0 auto;padding:36px 34px 60px}
+.hero{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px 32px 24px;box-shadow:0 8px 30px rgba(19,45,67,.06)}
+.eyebrow{font-size:12px;letter-spacing:.18em;color:var(--gold);font-weight:800}
+h1{margin:6px 0 5px;font-size:38px;line-height:1.08;color:var(--navy);letter-spacing:-.02em}
+.hero-meta{color:var(--muted);font-size:14px}
+.hero-meta b{color:var(--navy)}
+.snapshot{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:24px}
+.snapshot-card{border:1px solid var(--line);border-radius:14px;padding:15px 16px;background:#FBFCFD}
+.snap-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-bottom:8px}
+.snap-row{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin:5px 0}
+.up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--muted)}
+.market-section{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 28px;box-shadow:0 7px 25px rgba(19,45,67,.045)}
+.market-header{display:flex;justify-content:space-between;align-items:end;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+.section-kicker{font-size:11px;letter-spacing:.14em;color:var(--gold);font-weight:800}
+h2{font-size:26px;margin:4px 0 0;color:var(--navy)}
+.note-pill{font-size:12px;color:var(--navy);background:#EEF3F7;padding:6px 10px;border-radius:99px;font-weight:700}
+.viz-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.viz-card{border:1px solid var(--line);border-radius:16px;padding:18px;background:#FCFDFE;min-width:0}
+.viz-title{font-size:17px;font-weight:800;color:var(--navy)}
+.viz-sub{font-size:12px;color:var(--muted);margin:2px 0 8px}
+.move-svg,.trend-svg{width:100%;height:auto;display:block}
+.zero-line{stroke:#9AA9B5;stroke-width:1.2;stroke-dasharray:3 4}
+.posbar{fill:#2C7C64} .negbar{fill:#C85A52}
+.bar-name{font-size:13px;fill:#31404C;font-weight:700}
+.bar-value{font-size:13px;fill:#18222D;font-weight:800}
+.grid{stroke:#E4E9ED;stroke-width:1}
+.xlab{font-size:11px;fill:#7A8793}
+.levels{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--muted);border-top:1px solid #E8ECEF;padding-top:9px;margin-top:4px}
+.levels b{color:var(--ink)}
+.trend-legend{display:flex;gap:18px;font-size:12px;color:var(--muted);margin-top:2px}
+.legend-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.ld0{background:var(--blue)} .ld1{background:var(--gold)}
+.brief-grid{margin-top:18px;border-top:1px solid var(--line)}
+.brief-row{display:grid;grid-template-columns:175px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid #EDF0F2}
+.brief-label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800}
+.brief-text{font-size:14px}
+.brief-text strong{color:var(--navy)}
+
+.background-row .brief-text{color:#31404C}
+.watch-row .brief-text{font-weight:600}
+.background,.cross-story,.sources{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 28px}
+.bg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:15px}
+.bg-item{display:grid;grid-template-columns:38px 1fr;gap:12px;border:1px solid var(--line);border-radius:14px;padding:14px}
+.bg-num{font-size:12px;font-weight:800;color:var(--gold)}
+.bg-item b{color:var(--navy)} .bg-item p{margin:4px 0 0;color:var(--muted);font-size:13px}
+.cross-flow{margin-top:16px;display:flex;align-items:center;justify-content:center;gap:13px;flex-wrap:wrap}
+.flow-node{padding:12px 18px;border-radius:12px;border:1px solid var(--line);background:#FBFCFD;font-weight:800;color:var(--navy)}
+.flow-arrow{font-size:22px;color:var(--gold);font-weight:900}
+.flow-caption{text-align:center;margin-top:12px;color:var(--muted);font-size:13px}
+.sources p{font-size:12px;color:var(--muted);margin:8px 0 0}
+.preview-note{margin-top:18px;text-align:center;font-size:12px;color:var(--muted)}
+@media(max-width:900px){
+  .snapshot{grid-template-columns:1fr 1fr}
+  .viz-grid,.bg-grid{grid-template-columns:1fr}
+  .brief-row{grid-template-columns:1fr;gap:4px}
+}
+@media(max-width:560px){
+  .page{padding:18px 12px 40px}
+  .snapshot{grid-template-columns:1fr}
+  h1{font-size:31px}
+}
+
+.bar-name{font-size:12.5px;fill:#31404C;font-weight:700}
+.bar-value{font-size:12.5px;fill:#18222D;font-weight:800}
+@media(max-width:560px){
+  .bar-name,.bar-value{font-size:11.5px}
+}
+
+.axis-line{stroke:#9AA9B5;stroke-width:1.2}
+.ylab{font-size:11px;fill:#6C7A89}
+.axis-title{font-size:11px;fill:#6C7A89;font-weight:700}
+
+.separate-trends{display:grid;grid-template-columns:1fr;gap:12px;margin-top:8px}
+.mini-trend-card{border:1px solid #E3E8EC;border-radius:12px;padding:10px 10px 6px;background:#fff}
+.mini-trend-head{font-size:13px;font-weight:800;color:#183A59;margin:0 0 2px 6px}
+.mini-trend-svg{width:100%;height:auto;display:block}
+
+/* V6 layout adjustment: enlarge Overnight Move chart so it matches the visual weight of Recent Trends */
+.viz-grid{align-items:stretch}
+.viz-card{display:flex;flex-direction:column}
+.move-svg{width:100%;height:auto;display:block;min-height:300px}
+.trend-svg{width:100%;height:auto;display:block}
+.levels{margin-top:auto}
+@media(min-width:901px){
+  .market-section .viz-grid > .viz-card:first-child{min-height:540px}
+  .market-section .viz-grid > .viz-card:first-child .move-svg{min-height:340px}
+}
+@media(max-width:900px){
+  .market-section .viz-grid > .viz-card:first-child{min-height:unset}
+  .market-section .viz-grid > .viz-card:first-child .move-svg{min-height:260px}
+}
+
+/* V7: better vertical balance in Overnight Move + distinct benchmark colors in Recent Trends */
+.move-svg{min-height:330px}
+.market-section .viz-grid > .viz-card:first-child{justify-content:flex-start}
+.market-section .viz-grid > .viz-card:first-child .levels{margin-top:8px}
+.mini-trend-card{transition:none}
+.mini-trend-head{font-weight:800}
+@media(min-width:901px){
+  .market-section .viz-grid > .viz-card:first-child .move-svg{min-height:350px}
+}
+
+
+
+
+
+.endpoint-label-side{
+  font-size:11px;
+  font-weight:800;
+}
+
+.ai-reflection{margin-top:22px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px 28px}
+.ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:15px}
+.ai-card{border:1px solid var(--line);border-radius:14px;padding:16px;background:#FBFCFD}
+.ai-card-title{font-size:15px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.ai-card p{margin:0;color:var(--muted);font-size:13px}
+.ai-card ul{margin:6px 0 0 18px;padding:0;color:var(--muted);font-size:13px}
+.ai-card li{margin:7px 0;line-height:1.45}
+@media(max-width:900px){.ai-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+<h1>Morning Meeting Dashboard</h1>
+<div class="hero-meta">Morning Meeting · <b>20 Sep 2026</b> · Market data through <b>18 Sep 2026</b> · FINAL</div>
+<div class="snapshot"><div class="snapshot-card"><div class="snap-title">Equity</div><div class="snap-row"><span>S&amp;P 500</span><b class="up">+0.17%</b></div><div class="snap-row"><span>CSI 300</span><b class="up">+1.06%</b></div></div><div class="snapshot-card"><div class="snap-title">FX</div><div class="snap-row"><span>USD/CNH</span><b class="down">-0.13%</b></div><div class="snap-row"><span>EUR/USD</span><b class="up">+0.07%</b></div></div><div class="snapshot-card"><div class="snap-title">Commodity</div><div class="snap-row"><span>Gold Spot</span><b class="up">+0.85%</b></div><div class="snap-row"><span>Brent</span><b class="down">-0.91%</b></div></div><div class="snapshot-card"><div class="snap-title">Bond</div><div class="snap-row"><span>US 10Y Treasury</span><b class="up">+4.9 bp</b></div><div class="snap-row"><span>China 10Y CGB</span><b class="down">-0.6 bp</b></div></div><div class="snapshot-card"><div class="snap-title">Crypto</div><div class="snap-row"><span>Bitcoin</span><b class="up">+5.81%</b></div><div class="snap-row"><span>Ethereum</span><b class="up">+6.71%</b></div></div></div>
+</header>
+<section class="background">
+<div class="section-kicker">LATEST MARKET BACKGROUND</div>
+<h2>What is driving today’s markets?</h2>
+<div class="bg-grid">
+<div class="bg-item">
+<div class="bg-num">01</div>
+<div><b>US 10Y back around 5%</b><p>The US 10-year yield closed at about 5.00% after the Fed’s 25 bp hike on 16 Sep, keeping discount-rate pressure on risk assets.</p></div>
+</div>
+<div class="bg-item">
+<div class="bg-num">02</div>
+<div><b>Oil cools, but stays above $100</b><p>Brent fell 0.91% to $103.87 as immediate supply-disruption fears eased, helping the near-term inflation story without removing the energy risk.</p></div>
+</div>
+<div class="bg-item">
+<div class="bg-num">03</div>
+<div><b>Asia policy divergence</b><p>The BOJ raised its policy rate to 1.25%, while the CSI 300 gained 1.06%; markets next turn to Monday’s China LPR decision.</p></div>
+</div>
+<div class="bg-item">
+<div class="bg-num">04</div>
+<div><b>Crypto breaks higher</b><p>Bitcoin rose 5.81% to $80.9k and Ethereum gained 6.71%, helped by regulatory progress, renewed Bitcoin ETF inflows and short covering.</p></div>
+</div>
+</div>
+</section><section class="market-section">
+<div class="market-header">
+<div><div class="section-kicker">A · MORNING MEETING</div><h2>Equity Markets</h2></div>
+<span class="note-pill">Move shown in %</span>
+</div>
+<div class="viz-grid">
+<div class="viz-card">
+<div class="viz-title">Overnight Move</div>
+<div class="viz-sub">Latest complete daily observation vs prior observation</div>
+<svg aria-label="Overnight move chart" class="move-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 650 220"><line class="zero-line" x1="325" x2="325" y1="34" y2="188"></line><text class="bar-name" x="12" y="79">S&amp;P 500</text><rect class="posbar" height="28" rx="6" width="28.1" x="325.0" y="54"></rect><text class="bar-value" text-anchor="start" x="363.1" y="79">+0.17%</text><text class="bar-name" x="12" y="159">CSI 300</text><rect class="posbar" height="28" rx="6" width="175.0" x="325.0" y="134"></rect><text class="bar-value" text-anchor="start" x="510.0" y="159">+1.06%</text></svg>
+<div class="levels">
+<span>S&amp;P 500 level <b>7,650.50</b></span>
+<span>CSI 300 level <b>4,507.39</b></span>
+</div>
+</div>
+<div class="viz-card">
+<div class="viz-title">Recent Trends</div>
+<div class="viz-sub">14 Sep to 18 Sep · each benchmark shown separately</div>
+<div class="separate-trends">
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#275D8C;">S&amp;P 500</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">7,537</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">7,580</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">7,623</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">7,665</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">Index level</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,52.7 170.0,80.5 274.0,108.0 378.0,38.3 482.0,28.0" stroke="#275D8C" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="28.0" fill="#275D8C" r="4"></circle><text class="endpoint-label-side" fill="#275D8C" text-anchor="start" x="498.0" y="32.0">7,650.50</text></svg></div>
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#B77722;">CSI 300</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">4,441</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">4,466</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">4,491</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">4,516</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">Index level</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,66.1 170.0,108.0 274.0,65.8 378.0,93.9 482.0,28.0" stroke="#B77722" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="28.0" fill="#B77722" r="4"></circle><text class="endpoint-label-side" fill="#B77722" text-anchor="start" x="498.0" y="32.0">4,507.39</text></svg></div>
+</div>
+</div>
+</div>
+<div class="brief-grid">
+<div class="brief-row"><div class="brief-label">Move / Term</div><div class="brief-text">S&amp;P 500 <strong>rose 0.17%</strong>; CSI 300 <strong>rose 1.06%</strong>. <strong>Term: Overnight.</strong></div></div>
+<div class="brief-row"><div class="brief-label">Explanation</div><div class="brief-text">US stocks edged higher, led by technology shares, but the <strong>10-year Treasury yield near 5%</strong> limited the upside. China’s CSI 300 outperformed, with <strong>semiconductor and chip-related shares</strong> among the stronger areas.</div></div>
+<div class="brief-row background-row"><div class="brief-label">Latest Market Background</div><div class="brief-text">The week was dominated by tighter global policy and inflation concerns. The <strong>Fed raised rates by 25 bp on 16 Sep</strong>, while oil stayed above $100 even after Friday’s pullback.</div></div>
+<div class="brief-row watch-row"><div class="brief-label">What’s next</div><div class="brief-text">Watch whether the US 10-year yield stays around or below 5%, and whether China’s tech-led rebound broadens after the weekend.</div></div>
+</div>
+</section>
+<section class="market-section">
+<div class="market-header">
+<div><div class="section-kicker">B · MORNING MEETING</div><h2>FX Markets</h2></div>
+<span class="note-pill">Move shown in %</span>
+</div>
+<div class="viz-grid">
+<div class="viz-card">
+<div class="viz-title">Overnight Move</div>
+<div class="viz-sub">Latest complete daily observation vs prior observation</div>
+<svg aria-label="Overnight move chart" class="move-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 650 220"><line class="zero-line" x1="325" x2="325" y1="34" y2="188"></line><text class="bar-name" x="12" y="79">USD/CNH</text><rect class="negbar" height="28" rx="6" width="175.0" x="150.0" y="54"></rect><text class="bar-value" text-anchor="end" x="140.0" y="79">-0.13%</text><text class="bar-name" x="12" y="159">EUR/USD</text><rect class="posbar" height="28" rx="6" width="94.2" x="325.0" y="134"></rect><text class="bar-value" text-anchor="start" x="429.2" y="159">+0.07%</text></svg>
+<div class="levels">
+<span>USD/CNH level <b>6.6952</b></span>
+<span>EUR/USD level <b>1.1484</b></span>
+</div>
+</div>
+<div class="viz-card">
+<div class="viz-title">Recent Trends</div>
+<div class="viz-sub">14 Sep to 18 Sep · each benchmark shown separately</div>
+<div class="separate-trends">
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#275D8C;">USD/CNH</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">6.6926</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">6.7001</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">6.7077</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">6.7152</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">FX rate</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,41.8 170.0,30.3 274.0,28.0 378.0,69.4 482.0,108.0" stroke="#275D8C" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="108.0" fill="#275D8C" r="4"></circle><text class="endpoint-label-side" fill="#275D8C" text-anchor="start" x="498.0" y="112.0">6.6952</text></svg></div>
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#B77722;">EUR/USD</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">1.1454</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">1.1490</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">1.1525</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">1.1561</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">FX rate</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,28.0 170.0,32.8 274.0,108.0 378.0,98.4 482.0,90.7" stroke="#B77722" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="90.7" fill="#B77722" r="4"></circle><text class="endpoint-label-side" fill="#B77722" text-anchor="start" x="498.0" y="94.7">1.1484</text></svg></div>
+</div>
+</div>
+</div>
+<div class="brief-grid">
+<div class="brief-row"><div class="brief-label">Move / Term</div><div class="brief-text">USD/CNH <strong>fell 0.13%</strong>; EUR/USD <strong>rose 0.07%</strong>. <strong>Term: Overnight.</strong></div></div>
+<div class="brief-row"><div class="brief-label">Explanation</div><div class="brief-text">The offshore yuan strengthened slightly against the dollar, while EUR/USD was nearly flat. The key signal was <strong>relative RMB strength</strong>, rather than a broad decline in the US dollar.</div></div>
+<div class="brief-row background-row"><div class="brief-label">Latest Market Background</div><div class="brief-text">The dollar remains supported by <strong>high US yields</strong>. China’s upcoming LPR decision and the wide US–China rate gap are the main near-term inputs for USD/CNH.</div></div>
+<div class="brief-row watch-row"><div class="brief-label">What’s next</div><div class="brief-text">Watch the US–China rate gap, Fed guidance and Monday’s China LPR decision; EUR/USD remains sensitive to the Fed–ECB policy gap.</div></div>
+</div>
+</section>
+<section class="market-section">
+<div class="market-header">
+<div><div class="section-kicker">C · MORNING MEETING</div><h2>Commodity Markets</h2></div>
+<span class="note-pill">Move shown in %</span>
+</div>
+<div class="viz-grid">
+<div class="viz-card">
+<div class="viz-title">Overnight Move</div>
+<div class="viz-sub">Latest complete daily observation vs prior observation</div>
+<svg aria-label="Overnight move chart" class="move-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 650 220"><line class="zero-line" x1="325" x2="325" y1="34" y2="188"></line><text class="bar-name" x="12" y="79">Gold Spot</text><rect class="posbar" height="28" rx="6" width="163.5" x="325.0" y="54"></rect><text class="bar-value" text-anchor="start" x="498.5" y="79">+0.85%</text><text class="bar-name" x="12" y="159">Brent</text><rect class="negbar" height="28" rx="6" width="175.0" x="150.0" y="134"></rect><text class="bar-value" text-anchor="end" x="140.0" y="159">-0.91%</text></svg>
+<div class="levels">
+<span>Gold Spot level <b>$4,378.17</b></span>
+<span>Brent level <b>$103.87</b></span>
+</div>
+</div>
+<div class="viz-card">
+<div class="viz-title">Recent Trends</div>
+<div class="viz-sub">14 Sep to 18 Sep · each benchmark shown separately</div>
+<div class="separate-trends">
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#275D8C;">Gold Spot</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">4,246</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">4,296</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">4,346</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">4,395</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">USD</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,83.4 170.0,86.7 274.0,108.0 378.0,53.7 482.0,28.0" stroke="#275D8C" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="28.0" fill="#275D8C" r="4"></circle><text class="endpoint-label-side" fill="#275D8C" text-anchor="start" x="498.0" y="32.0">$4,378.17</text></svg></div>
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#B77722;">Brent</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">103.1</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">105.3</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">107.4</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">109.5</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">USD/bbl</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,78.3 170.0,28.0 274.0,75.9 378.0,92.4 482.0,108.0" stroke="#B77722" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="108.0" fill="#B77722" r="4"></circle><text class="endpoint-label-side" fill="#B77722" text-anchor="start" x="498.0" y="112.0">$103.87</text></svg></div>
+</div>
+</div>
+</div>
+<div class="brief-grid">
+<div class="brief-row"><div class="brief-label">Move / Term</div><div class="brief-text">Gold Spot <strong>rose 0.85%</strong>; Brent <strong>fell 0.91%</strong>. <strong>Term: Overnight.</strong></div></div>
+<div class="brief-row"><div class="brief-label">Explanation</div><div class="brief-text">Gold rose even with US yields near 5%, showing continued demand for a <strong>hedge against macro and geopolitical uncertainty</strong>. Brent fell as immediate supply-disruption fears eased.</div></div>
+<div class="brief-row background-row"><div class="brief-label">Latest Market Background</div><div class="brief-text">Brent remained above $100, so energy is still an inflation risk. Gold rebounded as investors balanced <strong>high real yields</strong> against demand for protection.</div></div>
+<div class="brief-row watch-row"><div class="brief-label">What’s next</div><div class="brief-text">Watch Middle East supply risks for oil, and the interaction between the dollar, real yields and inflation expectations for gold.</div></div>
+</div>
+</section>
+<section class="market-section">
+<div class="market-header">
+<div><div class="section-kicker">D · MORNING MEETING</div><h2>Bond Markets</h2></div>
+<span class="note-pill">Yield move shown in bp</span>
+</div>
+<div class="viz-grid">
+<div class="viz-card">
+<div class="viz-title">Overnight Move</div>
+<div class="viz-sub">Latest complete daily observation vs prior observation</div>
+<svg aria-label="Overnight move chart" class="move-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 650 220"><line class="zero-line" x1="325" x2="325" y1="34" y2="188"></line><text class="bar-name" x="12" y="79">US 10Y Treasury</text><rect class="posbar" height="28" rx="6" width="175.0" x="325.0" y="54"></rect><text class="bar-value" text-anchor="start" x="510.0" y="79">+4.9 bp</text><text class="bar-name" x="12" y="159">China 10Y CGB</text><rect class="negbar" height="28" rx="6" width="21.4" x="303.6" y="134"></rect><text class="bar-value" text-anchor="end" x="293.6" y="159">-0.6 bp</text></svg>
+<div class="levels">
+<span>US 10Y Treasury level <b>4.996%</b></span>
+<span>China 10Y CGB level <b>1.678%</b></span>
+</div>
+</div>
+<div class="viz-card">
+<div class="viz-title">Recent Trends</div>
+<div class="viz-sub">14 Sep to 18 Sep · each benchmark shown separately</div>
+<div class="separate-trends">
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#275D8C;">US 10Y Treasury</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">4.938</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">4.963</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">4.988</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">5.013</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">Yield (%)</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,88.4 170.0,39.2 274.0,28.0 378.0,108.0 482.0,39.2" stroke="#275D8C" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="39.2" fill="#275D8C" r="4"></circle><text class="endpoint-label-side" fill="#275D8C" text-anchor="start" x="498.0" y="43.2">4.996%</text></svg></div>
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#B77722;">China 10Y CGB</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">1.676</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">1.682</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">1.687</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">1.693</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">Yield (%)</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,28.0 170.0,64.9 274.0,71.1 378.0,71.1 482.0,108.0" stroke="#B77722" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="108.0" fill="#B77722" r="4"></circle><text class="endpoint-label-side" fill="#B77722" text-anchor="start" x="498.0" y="112.0">1.678%</text></svg></div>
+</div>
+</div>
+</div>
+<div class="brief-grid">
+<div class="brief-row"><div class="brief-label">Move / Term</div><div class="brief-text">US 10Y Treasury <strong>rose 4.9 bp</strong>; China 10Y CGB <strong>fell 0.6 bp</strong>. <strong>Term: Overnight.</strong></div></div>
+<div class="brief-row"><div class="brief-label">Explanation</div><div class="brief-text">The US 10-year yield moved back to about <strong>5%</strong> as markets priced a tighter policy backdrop. China’s 10-year yield edged lower, leaving a <strong>very wide US–China yield gap</strong>.</div></div>
+<div class="brief-row background-row"><div class="brief-label">Latest Market Background</div><div class="brief-text">The Fed raised its target range by 25 bp to <strong>3.75%–4.00%</strong>. China remains in a much lower-rate environment, keeping the cross-market yield gap wide.</div></div>
+<div class="brief-row watch-row"><div class="brief-label">What’s next</div><div class="brief-text">The 5% US 10-year level remains the main cross-asset threshold. Also watch Monday’s China LPR decision and next week’s US activity data.</div></div>
+</div>
+</section>
+<section class="market-section">
+<div class="market-header">
+<div><div class="section-kicker">E · MORNING MEETING</div><h2>Crypto Markets</h2></div>
+<span class="note-pill">Move shown in %</span>
+</div>
+<div class="viz-grid">
+<div class="viz-card">
+<div class="viz-title">Overnight Move</div>
+<div class="viz-sub">Latest complete daily observation vs prior observation</div>
+<svg aria-label="Overnight move chart" class="move-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 650 220"><line class="zero-line" x1="325" x2="325" y1="34" y2="188"></line><text class="bar-name" x="12" y="79">Bitcoin</text><rect class="posbar" height="28" rx="6" width="151.5" x="325.0" y="54"></rect><text class="bar-value" text-anchor="start" x="486.5" y="79">+5.81%</text><text class="bar-name" x="12" y="159">Ethereum</text><rect class="posbar" height="28" rx="6" width="175.0" x="325.0" y="134"></rect><text class="bar-value" text-anchor="start" x="510.0" y="159">+6.71%</text></svg>
+<div class="levels">
+<span>Bitcoin level <b>$80,882</b></span>
+<span>Ethereum level <b>$2,611.68</b></span>
+</div>
+</div>
+<div class="viz-card">
+<div class="viz-title">Recent Trends</div>
+<div class="viz-sub">14 Sep to 18 Sep · each benchmark shown separately</div>
+<div class="separate-trends">
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#275D8C;">Bitcoin</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">74,831</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">77,111</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">79,391</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">81,671</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">USD</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,69.0 170.0,108.0 274.0,99.3 378.0,95.5 482.0,28.0" stroke="#275D8C" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="28.0" fill="#275D8C" r="4"></circle><text class="endpoint-label-side" fill="#275D8C" text-anchor="start" x="498.0" y="32.0">$80,882</text></svg></div>
+<div class="mini-trend-card"><div class="mini-trend-head" style="color:#B77722;">Ethereum</div><svg aria-label="Recent trend" class="mini-trend-svg" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 590 150"><line class="axis-line" x1="66" x2="66" y1="16" y2="120"></line><line class="axis-line" x1="66" x2="482" y1="120" y2="120"></line><line class="grid" x1="66" x2="482" y1="120.0" y2="120.0"></line><text class="ylab" text-anchor="end" x="58" y="124.0">2,367</text><line class="grid" x1="66" x2="482" y1="85.3" y2="85.3"></line><text class="ylab" text-anchor="end" x="58" y="89.3">2,459</text><line class="grid" x1="66" x2="482" y1="50.7" y2="50.7"></line><text class="ylab" text-anchor="end" x="58" y="54.7">2,551</text><line class="grid" x1="66" x2="482" y1="16.0" y2="16.0"></line><text class="ylab" text-anchor="end" x="58" y="20.0">2,644</text><text class="axis-title" transform="rotate(-90 15 75)" x="15" y="75">USD</text><text class="xlab" x="66" y="143">14 Sep</text><text class="xlab" text-anchor="middle" x="274.0" y="143">16 Sep</text><text class="xlab" text-anchor="end" x="482" y="143">18 Sep</text><polyline fill="none" points="66.0,64.3 170.0,108.0 274.0,100.5 378.0,89.7 482.0,28.0" stroke="#B77722" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"></polyline><circle cx="482.0" cy="28.0" fill="#B77722" r="4"></circle><text class="endpoint-label-side" fill="#B77722" text-anchor="start" x="498.0" y="32.0">$2,611.68</text></svg></div>
+</div>
+</div>
+</div>
+<div class="brief-grid">
+<div class="brief-row"><div class="brief-label">Move / Term</div><div class="brief-text">Bitcoin <strong>rose 5.81%</strong>; Ethereum <strong>rose 6.71%</strong>. <strong>Term: Overnight.</strong></div></div>
+<div class="brief-row"><div class="brief-label">Explanation</div><div class="brief-text">Bitcoin and Ethereum both rallied strongly, with Bitcoin moving back above <strong>$80,000</strong>. Regulatory progress and a return of Bitcoin ETF inflows helped sentiment, while short covering added momentum.</div></div>
+<div class="brief-row background-row"><div class="brief-label">Latest Market Background</div><div class="brief-text">Crypto is still highly sensitive to <strong>liquidity, regulation and risk appetite</strong>. Friday’s rebound showed that policy and regulatory headlines can temporarily outweigh the drag from high bond yields.</div></div>
+<div class="brief-row watch-row"><div class="brief-label">What’s next</div><div class="brief-text">Watch whether Bitcoin can hold above $80,000 and whether the rally broadens without renewed pressure from higher yields or a stronger dollar.</div></div>
+</div>
+</section>
+
+<section class="cross-story">
+<div class="section-kicker">TODAY’S CROSS-ASSET STORY</div>
+<h2>One transmission mechanism to remember</h2>
+<div class="cross-flow">
+<div class="flow-node">Brent ↓</div><div class="flow-arrow">→</div>
+<div class="flow-node">Near-term inflation pressure eases</div><div class="flow-arrow">→</div>
+<div class="flow-node">But Fed is tighter</div><div class="flow-arrow">→</div>
+<div class="flow-node">US 10Y ≈ 5%</div>
+</div>
+<div class="flow-caption">Lower oil helped the inflation story, but a tighter Fed and a US 10-year yield around 5% kept discount-rate pressure on equities and other risk assets.</div>
+</section>
+<section class="sources">
+<div class="section-kicker">SOURCES &amp; METHODOLOGY</div>
+<h2>Simple, consistent presentation rules</h2>
+<p><b>Move:</b> latest complete daily observation versus the prior complete observation. Price assets and FX are shown in percentage change; government-bond yield moves are shown in basis points.</p>
+<p><b>Trend:</b> five complete daily observations from 14 Sep to 18 Sep, shown on separate y-axes for each benchmark. Endpoint labels sit beside the final point so they do not cover the line.</p>
+<p><b>Data convention:</b> benchmark closes and trend series use a single Investing.com historical-close convention for consistency. S&amp;P 500 and macro/market context were cross-checked against AP and Reuters; Fed and BOJ decisions were checked against official central-bank releases. When vendors display different intraday, contract or end-of-day conventions, the dashboard keeps one consistent historical-close series across headline, chart and narrative.</p>
+<p><b>Cutoff:</b> common cross-asset market-data cutoff is 18 Sep 2026. Crypto also uses the 18 Sep daily close to keep the comparison aligned with the Friday close in stocks, FX, commodities and bonds.</p>
+</section><section class="ai-reflection">
+<div class="section-kicker">AI REFLECTION</div>
+<h2>How AI supported the dashboard</h2>
+<div class="ai-grid">
+<div class="ai-card">
+<div class="ai-card-title">AI tools used and why</div>
+<ul>
+<li><b>ChatGPT:</b> Structured the dashboard, refined the market commentary, generated the HTML/SVG layout, and checked consistency across sections.</li>
+<li><b>Web research:</b> Verified market closes, policy decisions, event dates, and source consistency before publication.</li>
+<li><b>Python:</b> Checked calculations, percentage and basis-point moves, sign direction, chart coordinates, and endpoint labels.</li>
+</ul>
+</div>
+<div class="ai-card">
+<div class="ai-card-title">Prompts used</div>
+<ul>
+<li>Update the five asset classes using the latest fully completed market day and keep the benchmark set unchanged.</li>
+<li>Explain the key driver behind each market move clearly and connect it with the latest cross-asset background.</li>
+<li>Check data consistency, dates, units, signs, axis scales, endpoint labels, and cross-asset logic before publishing.</li>
+</ul>
+</div>
+<div class="ai-card">
+<div class="ai-card-title">Challenges</div>
+<ul>
+<li><b>Different market close times:</b> Stocks, FX, commodities, bonds, and crypto do not share exactly the same trading schedule, so the dashboard needs one consistent cutoff.</li>
+<li><b>Different data conventions:</b> Vendors can use different close, contract, and quote conventions; one consistent historical series is used for each benchmark.</li>
+<li><b>Different units and scales:</b> Bond yield moves are shown in basis points while other assets use percentages, and each trend chart needs its own y-axis.</li>
+<li><b>Clarity vs. accuracy:</b> The explanations must stay concise without oversimplifying the relationship between policy, yields, inflation, and risk assets.</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+</body>
+</html>
