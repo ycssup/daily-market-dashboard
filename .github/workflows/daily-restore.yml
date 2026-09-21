@@ -1,0 +1,31 @@
+name: Restore daily dashboard
+on:
+  push:
+    paths:
+      - '.github/workflows/daily-restore.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore approved production dashboard and refresh date
+        run: |
+          git show dbedeb38b81007f798c762cc96721d91cedcd247:index.html > index.html
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('<title>Morning Meeting Dashboard · 20 Sep 2026</title>','<title>Morning Meeting Dashboard · 21 Sep 2026</title>')
+          s=s.replace('Morning Meeting · <b>20 Sep 2026</b> · Market data through <b>18 Sep 2026</b>','Morning Meeting · <b>21 Sep 2026</b> · Market data through <b>18 Sep 2026</b>')
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'Daily dashboard refresh for 21 Sep 2026'
+          git push
